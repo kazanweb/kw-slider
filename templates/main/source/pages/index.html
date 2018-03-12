@@ -4,38 +4,58 @@
 
 <div class="wrapper" id="js-wrapper">
 
-		{% include 'header/global/header.html' %}
+	{% include 'header/global/header.html' %}
 
-		<div class="middle">
-				<div class="middle__container">
+	<div class="middle">
+		<div class="middle__container">
 
-						<div class="content">
-								<!-- WORKAREA -->
+			<div class="content">
+				<!-- WORKAREA -->
 
-								{% include 'breadcrumbs/breadcrumbs.html' %}
+				{% include 'breadcrumbs/breadcrumbs.html' %}
 
-								<div class="title">Навигация</div>
+				<div class="title">Навигация</div>
 
-								{% include 'checkbox/checkbox.html' %}
-								{% include 'pagination/pagination.html' %}
+				<ul class="list" id="js-list">
+					<li class="list__item">
+						<a href="#" class="list__link">1</a>
+						<!-- /.list__link -->
+					</li>
+					<!-- /.list__item -->
+					<li class="list__item">
+						<a href="#" class="list__link">2</a>
+						<!-- /.list__link -->
+					</li>
+					<!-- /.list__item -->
+					<li class="list__item">
+						<a href="#" class="list__link">3</a>
+						<!-- /.list__link -->
+					</li>
+					<!-- /.list__item -->
+					<li class="list__item">
+						<a href="#" class="list__link">4</a>
+						<!-- /.list__link -->
+					</li>
+					<!-- /.list__item -->
+					<li class="list__item">
+						<a href="#" class="list__link">5</a>
+						<!-- /.list__link -->
+					</li>
+					<!-- /.list__item -->
+				</ul>
+				<!-- /.list -->
 
-								<div class="icon icon_ambulance"></div>
 
-								<div class="icon icon_auth"></div>
+				<!-- /.icon icon_auth -->
 
-								<div class="icon icon_auth2"></div>
+				<!-- END WORKAREA -->
+			</div>
+			<!-- /.content -->
 
-
-								<!-- /.icon icon_auth -->
-
-								<!-- END WORKAREA -->
-						</div>
-						<!-- /.content -->
-
-				</div>
-				<!-- /.middle__container -->
 		</div>
-		<!-- /.middle -->
+		<!-- /.middle__container -->
+	</div>
+	<!-- /.middle -->
 
 </div>
 <!-- /.wrapper -->
