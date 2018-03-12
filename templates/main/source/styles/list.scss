@@ -1,0 +1,17 @@
+.list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+
+	&__item {
+		display: inline-block;
+		vertical-align: top;
+		margin-right: 100px;
+	}
+
+	&__link {
+		display: block;
+		text-decoration: none;
+	}
+}
