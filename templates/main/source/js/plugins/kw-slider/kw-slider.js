@@ -18,6 +18,7 @@
 		}
 		return obj;
 	}
+
 	function KwSlider(opts) {
 
 		this.opts = this.extend({
@@ -152,9 +153,18 @@
 					e.stopPropagation();
 					e.preventDefault();
 
-					coords.x = (mobileDetect ? e.touches[0].pageX : e.pageX) - coords.shiftX - obj.values.x;
+					coords.x = (mobileDetect ? e.touches[0].pageX : e.pageX) - coords.shiftX - Math.abs(obj.values.x);
+
+					if(coords.x > 0) {
+						coords.x = 0;
+					}
+
+					if(Math.abs(coords.x) > obj.values.widthLimit) {
+						coords.x = obj.values.widthLimit * (-1);
+					}
 
 					obj.transformX(obj.tags.element, coords.x);
+
 				}
 
 			});
@@ -163,6 +173,33 @@
 				triggerMove = false;
 				obj.tags.slider.classList.remove('kw-drag');
 				obj.values.x = coords.x;
+
+
+				// if (Math.abs(shiftX) < (obj.values.width_parent / 6)) {
+				//
+				// 	obj.cssTransform(obj.tags.element, (obj.values.step * (-1)));
+				// 	return false;
+				// }
+				//
+				// if (!obj.values.longTouch) {
+				//
+				// 	translate();
+				//
+				// }
+				// else
+				// if (obj.values.longTouch) {
+				//
+				// 	if (Math.abs(shiftX) < obj.values.width_parent / 2) {
+				// 		obj.cssTransform(obj.tags.element, (obj.values.step * (-1)));
+				// 	}
+				// 	else {
+				//
+				// 		translate();
+				//
+				// 	}
+				//
+				// }
+
 			});
 
 		},
