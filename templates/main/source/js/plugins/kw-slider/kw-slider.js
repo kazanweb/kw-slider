@@ -39,7 +39,7 @@
 
 			this.tags = {};
 			this.values = {};
-			this.values.offsetX = 0;
+			this.values.x = 0;
 			this.values.counterSlide = 0;
 
 			this.tags.element = this.opts.element;
@@ -79,11 +79,11 @@
 
 			this.tags.slider.classList.remove('kw-enable');
 
-			this.values.widthList = this.tags.element.scrollWidth;
+			this.values.width = this.tags.element.scrollWidth;
 			this.values.widthParent = this.tags.sliderSection.offsetWidth;
 			this.values.trigger = false;
 
-			if(this.values.widthList <= this.values.widthParent) {
+			if(this.values.width <= this.values.widthParent) {
 				this.values.trigger = false;
 				return false;
 			}
@@ -91,11 +91,11 @@
 			this.values.trigger = true;
 
 			this.tags.slider.classList.add('kw-enable');
-			this.values.widthList = this.tags.element.scrollWidth;
+			this.values.width = this.tags.element.scrollWidth;
 			this.values.widthParent = this.tags.sliderScroll.offsetWidth;
 			this.values.step = this.values.widthParent;
 			this.values.widthItem = this.tags.children[0].offsetWidth;
-			this.values.widthLimit = this.values.widthList - this.values.widthParent;
+			this.values.widthLimit = this.values.width - this.values.widthParent;
 
 		},
 
@@ -112,12 +112,12 @@
 					this.tags.sliderButtons.classList.add('kw-show-buttons');
 				}
 
-				this.values.offsetX = this.values.counterSlide * this.values.step;
+				this.values.x = this.values.counterSlide * this.values.step;
 
-				if(Math.abs(this.values.offsetX) >= this.values.widthLimit) {
-					this.values.offsetX = this.values.widthLimit * (-1);
+				if(Math.abs(this.values.x) >= this.values.widthLimit) {
+					this.values.x = this.values.widthLimit * (-1);
 				}
-				this.transformX(this.tags.element, this.values.offsetX);
+				this.transformX(this.tags.element, this.values.x);
 
 				return false;
 
@@ -133,7 +133,37 @@
 
 		eventsDrag: function () {
 
+			var obj = this;
+			var triggerMove = false;
+			var coords = {};
 
+			this.tags.element.addEventListener(mouseEvents.start, function(e) {
+
+				triggerMove = true;
+				coords.shiftX = mobileDetect ? e.touches[0].pageX : e.pageX;
+				obj.tags.slider.classList.add('kw-drag');
+
+			});
+
+			document.addEventListener(mouseEvents.move, function(e) {
+
+				if(triggerMove) {
+
+					e.stopPropagation();
+					e.preventDefault();
+
+					coords.x = (mobileDetect ? e.touches[0].pageX : e.pageX) - coords.shiftX - obj.values.x;
+
+					obj.transformX(obj.tags.element, coords.x);
+				}
+
+			});
+
+			document.addEventListener(mouseEvents.end, function() {
+				triggerMove = false;
+				obj.tags.slider.classList.remove('kw-drag');
+				obj.values.x = coords.x;
+			});
 
 		},
 
@@ -144,30 +174,30 @@
 			this.tags.sliderPrev.addEventListener(mouseEvents.end, function(e) {
 
 				e.stopPropagation();
-				obj.values.offsetX = obj.values.offsetX + obj.values.step;
+				obj.values.x = obj.values.x + obj.values.step;
 
 				obj.values.counterSlide = obj.values.counterSlide - 1;
 
-				if(Math.abs(obj.values.offsetX) >= 0) {
-					obj.values.offsetX = 0;
+				if(Math.abs(obj.values.x) >= 0) {
+					obj.values.x = 0;
 					obj.values.counterSlide = 0;
 				}
-				obj.transformX(obj.tags.element, obj.values.offsetX);
+				obj.transformX(obj.tags.element, obj.values.x);
 
 			});
 
 			this.tags.sliderNext.addEventListener(mouseEvents.end, function(e) {
 
 				e.stopPropagation();
-				obj.values.offsetX = obj.values.offsetX - obj.values.step;
+				obj.values.x = obj.values.x - obj.values.step;
 
 				obj.values.counterSlide = obj.values.counterSlide + 1;
 
-				if(Math.abs(obj.values.offsetX) >= obj.values.widthLimit) {
-					obj.values.offsetX = obj.values.widthLimit * (-1);
-					obj.values.counterSlide = Math.floor(obj.values.widthList / obj.values.widthParent);
+				if(Math.abs(obj.values.x) >= obj.values.widthLimit) {
+					obj.values.x = obj.values.widthLimit * (-1);
+					obj.values.counterSlide = Math.floor(obj.values.width / obj.values.widthParent);
 				}
-				obj.transformX(obj.tags.element, obj.values.offsetX);
+				obj.transformX(obj.tags.element, obj.values.x);
 
 			});
 

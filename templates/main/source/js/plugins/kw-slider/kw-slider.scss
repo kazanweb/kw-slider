@@ -1,6 +1,14 @@
 .kw-slider {
 	position: relative;
 
+	&.kw-drag {
+		user-select: none;
+
+		* {
+			user-select: none;
+		}
+	}
+
 	&.kw-enable &__section {
 		
 	}
@@ -18,6 +26,11 @@
 		align-items: center;
 		justify-content: flex-start;
 		transition: transform 500ms;
+	}
+
+	&.kw-drag &__list {
+		transition: none;
+		pointer-events: none;
 	}
 
 	&.kw-enable &__item {
