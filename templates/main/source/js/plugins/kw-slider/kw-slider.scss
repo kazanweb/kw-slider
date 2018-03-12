@@ -1,0 +1,43 @@
+.kw-slider {
+	position: relative;
+
+	&.enable &__section {
+		
+	}
+	
+	&.enable &__scroll {
+		overflow: hidden;
+	}
+
+	&.enable &__list {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	&.enable &__item {
+		margin: 0;
+		padding: 0 10px;
+		width: calc(100% / 3);
+	}
+
+	&.enable &__buttons {
+
+	}
+
+	&.enable &__prev,
+	&.enable &__next {
+		
+	}
+
+	&.enable &__nav {
+		
+	}
+
+	&.enable &__thumb {
+		
+	}
+}
