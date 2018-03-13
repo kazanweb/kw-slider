@@ -37,6 +37,14 @@
 		margin: 0;
 		padding: 0 10px;
 		min-width: calc(100% / 3);
+
+		@media (max-width: 800px) {
+			min-width: 50%;
+		}
+
+		@media (max-width: 500px) {
+			min-width: 100%;
+		}
 	}
 
 	&.kw-enable &__buttons {
@@ -82,6 +90,11 @@
 		&:after {
 			transform: translate(-50%, -50%) rotate(135deg);
 		}
+	}
+
+	&.kw-drag &__prev,
+	&.kw-drag &__next {
+		pointer-events: none;
 	}
 
 	&.kw-enable &__nav {
