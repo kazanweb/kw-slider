@@ -82,6 +82,7 @@
 
 		getValues: function () {
 
+			this.transformClearX(this.tags.element);
 			this.tags.slider.classList.remove('kw-enable');
 
 			this.values.width = this.tags.element.scrollWidth;
@@ -118,10 +119,11 @@
 					this.tags.sliderButtons.classList.add('kw-show-buttons');
 				}
 
-				this.values.x = this.values.counterSlide * this.values.step;
+				this.values.x = this.values.counterSlide * this.values.step * (-1);
 
 				if(Math.abs(this.values.x) >= this.values.widthLimit) {
 					this.values.x = this.values.widthLimit * (-1);
+					this.values.counterSlide = this.values.counterSlideEnd;
 				}
 				this.transformX(this.tags.element, this.values.x);
 
@@ -280,11 +282,22 @@
 		eventsResize: function () {
 
 			var obj = this;
+			var resizeTimer;
 
 			window.addEventListener('resize', function() {
+				clearTimeout(resizeTimer);
+				obj.tags.slider.classList.add('wk-resize');
+				resizeTimer = setTimeout(function() {
+					obj.tags.slider.classList.remove('wk-resize');
+				}, 250);
 				obj.resize();
 			});
 			window.addEventListener('orientationchange', function() {
+				clearTimeout(resizeTimer);
+				obj.tags.slider.classList.add('wk-resize');
+				resizeTimer = setTimeout(function() {
+					obj.tags.slider.classList.remove('wk-resize');
+				}, 250);
 				obj.resize();
 			});
 
